@@ -5,7 +5,7 @@
 
 她坐在画室的高脚凳上画素描，蓝头发，桌上有纸和铅笔。没人说话的时候，她隔半分钟自言自语一句；有人发弹幕，她抬头接一句。跑起来是一个 Node 进程加一个本地语音 worker，浏览器窗口打开就能当直播画面。
 
-![直播页](preview.png)
+<img src="preview.png" width="420" alt="直播页">
 
 做这事的起因很简单：通用 TTS 一开口，所有虚拟角色听起来都是同一个人。所以她的音色参考、参考文本、合成参数都放在仓库里，谁拿去跑，出来的都是这个音色。
 
@@ -70,13 +70,13 @@ python3 -m nltk.downloader -d ~/nltk_data averaged_perceptron_tagger_eng
 - **说话**：`v2_wave` `v3_point` `v3_holdup` `v3_stand`，念台词、回弹幕用
 - **手上有活**：`v2_think` `v2_drink` `v2_phone` `v2_stretch` `v3_blow` `v3_stretch` `v3_wipe` `v3_walk` `v3_crouch`，喝水、看手机、擦纸的时候用
 
-![立绘总览](preview-poses.jpg)
+<img src="preview-poses.jpg" width="820" alt="二十张立绘">
 
 两张蹲姿（`v3_crouch` `v4_crouch`）重心低，换过去时整帧往右下让 34 像素，不然脸被气泡压住。
 
 控制台长这样：
 
-![控制台](preview-panel.png)
+<img src="preview-panel.png" width="820" alt="控制台">
 
 ## 声音
 
