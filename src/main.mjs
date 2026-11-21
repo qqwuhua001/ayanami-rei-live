@@ -103,6 +103,7 @@ function stopRead(reason = 'stop') {
   read.running = false;
   read.index = 0;
   read.total = 0;
+  read.title = '';
   push('read', { running: false, reason });
 }
 
@@ -128,6 +129,9 @@ async function pumpRead() {
   await speakChunk(chunk, { read: true, index: index + 1, total: read.queue.length });
   read.index += 1;
   push('read', { running: true, index: read.index, total: read.queue.length, title: read.title });
+  /* 每读一段长文，停两秒让她换口气。 */
+  const hold = settings().read.holdEvery || 8;
+  if (read.index % hold === 0) await new Promise((r) => setTimeout(r, 2000));
   pumpRead();
 }
 
@@ -175,7 +179,7 @@ async function onComment(user, text) {
   if (replyBusy) return;
   replyBusy = true;
   try {
-    const answer = await reply(text, user);
+    const answer = (await reply(text, user)) || `${user}，看见了。`;
     if (answer) {
       await new Promise((r) => setTimeout(r, 600));
       await say(answer, { to: user });
@@ -203,10 +207,13 @@ setInterval(tick, 5000);
 
 /* ---------- 路由 ---------- */
 
+const SHARED = /^(assets\/|voices\/cache\/|preview[\w-]*\.(png|jpg)$)/;
+
 async function staticFile(res, pathname) {
   const safe = normalize(pathname).replace(/^\/+/, '');
   if (safe.includes('..')) return false;
-  const candidates = [join(ROOT, 'web', safe), join(ROOT, safe)];
+  /* 只对外开页面、素材和合成缓存，源码、配置、台词库不外露。 */
+  const candidates = SHARED.test(safe) ? [join(ROOT, safe)] : [join(ROOT, 'web', safe)];
   for (const file of candidates) {
     if (existsSync(file)) {
       const info = await stat(file).catch(() => null);

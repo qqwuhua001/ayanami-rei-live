@@ -38,6 +38,7 @@ function merge(base, patch) {
   if (!patch || typeof patch !== 'object' || Array.isArray(patch)) return patch;
   const out = Array.isArray(base) ? [...base] : { ...base };
   for (const [key, value] of Object.entries(patch)) {
+    if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue;
     if (value && typeof value === 'object' && !Array.isArray(value) && base?.[key] && typeof base[key] === 'object') {
       out[key] = merge(base[key], value);
     } else {
