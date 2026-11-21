@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "绫波丽 · 抖音虚拟主播直播间（立绘、速写窗、本地音色、长文朗读、控制台）",
+  "description": "一个能开播的虚拟主播页面：本地零样本音色、立绘换帧、速写窗、长文朗读、控制台",
   "scripts": {
     "start": "node src/main.mjs",
     "voice": "python3 tools/voice_server.py"
