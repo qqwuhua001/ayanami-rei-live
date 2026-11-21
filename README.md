@@ -16,10 +16,26 @@
 | 元素 | 说明 |
 |---|---|
 | 背景 | `assets/rei/studio.jpg`，56 秒极慢推拉，几乎察觉不到在动 |
-| 立绘 | 9 张动作帧，待机呼吸，说话时随机换一张，不是机械循环 |
+| 立绘 | 20 张动作帧，按「安静 / 说话 / 手上有活」分三池，安静时每 11~20 秒换一个坐姿，换帧带淡入 |
 | 速写窗 | `assets/studio/sketch.mp4` 循环播放，角标「正在画」 |
 | 气泡 | 打字机输出，一次最多 54 字，长句自动截断 |
 | 磁带块 | 左下角，显示今天说了多少句 |
+
+## 立绘
+
+20 张，`assets/rei/`。全部同一画布（684×1490，透明底），换帧不会跳位置。
+
+![立绘总览](preview-poses.jpg)
+
+| 池 | 文件 | 用在什么时候 |
+|---|---|---|
+| 安静 | `v2_base` `v2_blink` `v2_hair` `v3_lean` `v3_window` `v3_lookout` `v4_crouch` | 待机、长时间没人说话 |
+| 说话 | `v2_wave` `v3_point` `v3_holdup` `v3_stand` | 念台词、回复弹幕 |
+| 手上有活 | `v2_think` `v2_drink` `v2_phone` `v2_stretch` `v3_blow` `v3_stretch` `v3_wipe` `v3_walk` `v3_crouch` | 画画、喝水、看手机、擦纸 |
+
+蹲姿两张（`v3_crouch` `v4_crouch`）重心低，换到它们时整帧往右下让一点，脸不会被气泡挡住。
+
+背景 `assets/rei/studio.jpg` 单独一层，慢推拉 56 秒一轮。
 
 ## 声音
 

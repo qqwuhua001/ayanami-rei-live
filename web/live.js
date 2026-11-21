@@ -8,13 +8,56 @@ const el = {
   voice: document.getElementById('voice'),
 };
 
-const poses = ['v2_base.png', 'v2_blink.png', 'v2_think.png', 'v2_drink.png', 'v2_phone.png', 'v3_lean.png', 'v4_crouch.png', 'v3_holdup.png', 'v3_window.png'];
+/* 二十张立绘按状态分池：安静时坐得住，说话时有动作，手上活计单独一组。 */
+const POSES = {
+  quiet: ['v2_base.png', 'v2_blink.png', 'v2_hair.png', 'v3_lean.png', 'v3_window.png', 'v3_lookout.png', 'v4_crouch.png'],
+  talk: ['v2_wave.png', 'v3_point.png', 'v3_holdup.png', 'v3_stand.png'],
+  busy: ['v2_think.png', 'v2_drink.png', 'v2_phone.png', 'v2_stretch.png', 'v3_blow.png', 'v3_stretch.png', 'v3_wipe.png', 'v3_walk.png', 'v3_crouch.png'],
+};
+const ALL = Object.values(POSES).flat();
+/* 蹲着的两张重心低，往右下让一点，别被气泡挡住脸。 */
+const LOW = ['v3_crouch.png', 'v4_crouch.png'];
+let current = 'v2_base.png';
 let typing = null;
 let idleTimer = null;
+let poseTimer = null;
+
+/* 先把图都预载进浏览器缓存，换姿势时不会空白一下。 */
+for (const name of ALL) {
+  const img = new Image();
+  img.src = `/assets/rei/${name}`;
+}
+
+function pose(kind = 'quiet') {
+  const pool = POSES[kind] || POSES.quiet;
+  const pick = pool[Math.floor(Math.random() * pool.length)];
+  if (pick === current) return;
+  current = pick;
+  el.pose.classList.add('swap');
+  el.pose.classList.toggle('low', LOW.includes(pick));
+  const next = new Image();
+  const done = () => {
+    el.pose.src = `/assets/rei/${pick}`;
+    el.pose.classList.remove('swap');
+  };
+  next.onload = done;
+  next.onerror = () => el.pose.classList.remove('swap');
+  next.src = `/assets/rei/${pick}`;
+}
+
+/* 不说话也不该像一张贴图：每十几秒换一个坐姿。 */
+function scheduleIdlePose() {
+  clearTimeout(poseTimer);
+  poseTimer = setTimeout(() => {
+    pose('quiet');
+    scheduleIdlePose();
+  }, 11000 + Math.random() * 9000);
+}
 
 function setIdle() {
   el.whisper.textContent = '自己待着';
   el.line.classList.add('silent');
+  pose('quiet');
 }
 
 function typeLine(text, author = '绫波丽') {
@@ -36,10 +79,7 @@ function typeLine(text, author = '绫波丽') {
   clearTimeout(idleTimer);
   idleTimer = setTimeout(setIdle, 22000);
 
-  if (Math.random() < 0.55) {
-    const next = poses[Math.floor(Math.random() * poses.length)];
-    el.pose.src = `/assets/rei/${next}`;
-  }
+  pose(Math.random() < 0.6 ? 'talk' : 'busy');
 }
 
 function addFeed(user, text) {
@@ -87,4 +127,5 @@ function connect() {
 }
 
 setIdle();
+scheduleIdlePose();
 connect();
