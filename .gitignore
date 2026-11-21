@@ -1,0 +1,8 @@
+node_modules/
+config.json
+voices/cache/
+data/lines.json
+GPT-SoVITS/
+.venv*/
+*.log
+.DS_Store

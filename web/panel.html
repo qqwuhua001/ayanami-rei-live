@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>绫波丽 · 控制台</title>
+<link rel="stylesheet" href="/panel.css">
+</head>
+<body>
+<header class="bar">
+  <h1>绫波丽 · 控制台</h1>
+  <span class="pill" id="status">连接中…</span>
+  <span class="pill" id="count">台词 0</span>
+  <button class="ghost" id="reload">刷新</button>
+</header>
+
+<main>
+  <section class="card">
+    <h2>说一句</h2>
+    <textarea id="sayText" rows="2" placeholder="想让她现在说什么"></textarea>
+    <div class="row">
+      <button id="sayGo">念</button>
+      <button class="ghost" id="introGo">开场白三句</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>读一篇</h2>
+    <textarea id="readText" rows="6" placeholder="粘一整篇进来。按 90–110 字并段，一边合成一边念，念完自动停。"></textarea>
+    <div class="row">
+      <button id="readGo">开始读</button>
+      <button class="ghost" id="readStop">停</button>
+      <span class="meta" id="readMeta">待机</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>台词库 <small id="lineCount"></small></h2>
+    <input id="search" placeholder="搜一句…">
+    <ul class="lines" id="lines"></ul>
+  </section>
+
+  <section class="card">
+    <h2>节奏</h2>
+    <label class="field">每小时自语 <input id="perHour" type="range" min="20" max="400" step="10"></label>
+    <label class="field">弹幕安静几秒 <input id="quiet" type="number" min="0" max="60"></label>
+    <label class="field">语音 <input id="speech" type="checkbox"> 开</label>
+    <button id="save">保存</button>
+  </section>
+</main>
+
+<template id="lineRow">
+  <li class="lrow">
+    <button class="sw" title="开关"></button>
+    <span class="cat"></span>
+    <span class="txt"></span>
+    <button class="mini say">说</button>
+    <button class="mini edit">改</button>
+    <button class="mini danger del">删</button>
+  </li>
+</template>
+
+<script src="/panel.js"></script>
+</body>
+</html>

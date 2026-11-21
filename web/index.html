@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>绫波丽 · 直播间</title>
+<link rel="stylesheet" href="/live.css">
+</head>
+<body>
+<main class="stage">
+  <div class="bg"><img src="/assets/rei/studio.jpg" alt=""></div>
+
+  <figure class="sketch">
+    <video src="/assets/studio/sketch.mp4" autoplay muted loop playsinline></video>
+    <figcaption>正在画</figcaption>
+  </figure>
+
+  <figure class="girl">
+    <img id="pose" src="/assets/rei/v2_base.png" alt="绫波丽">
+  </figure>
+
+  <section class="talk" id="talk">
+    <header>
+      <span class="who">绫波丽</span>
+      <span class="hint" id="whisper">自己待着</span>
+    </header>
+    <p class="line" id="line">今天画手。</p>
+    <ul class="feed" id="feed"></ul>
+  </section>
+
+  <aside class="meter">
+    <span class="tok" id="tok">0 tok</span>
+    <span class="cost" id="cost">¥0.0000</span>
+    <span class="tag">AI 直播</span>
+  </aside>
+</main>
+<audio id="voice" preload="auto"></audio>
+<script src="/live.js"></script>
+</body>
+</html>

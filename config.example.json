@@ -1,0 +1,8 @@
+{
+  "port": 8788,
+  "stage": { "width": 540, "height": 960 },
+  "model": { "base": "https://api.deepseek.com/v1", "name": "deepseek-chat", "apiKey": "" },
+  "speech": { "enabled": true, "worker": "http://127.0.0.1:8790", "timeoutMs": 60000 },
+  "rhythm": { "linesPerHour": 120, "quietAfterCommentSec": 8 },
+  "read": { "chunkMin": 90, "chunkMax": 110 }
+}
