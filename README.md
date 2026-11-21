@@ -9,6 +9,10 @@
 
 ## 画面
 
+![直播页](preview.png)
+
+![控制台](preview-panel.png)
+
 | 元素 | 说明 |
 |---|---|
 | 背景 | `assets/rei/studio.jpg`，56 秒极慢推拉，几乎察觉不到在动 |
