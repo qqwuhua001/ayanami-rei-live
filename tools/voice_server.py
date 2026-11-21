@@ -72,7 +72,13 @@ def pieces(result):
             item = (item.get('sample_rate', 32000), item.get('audio'))
         part_rate, audio = item
         rate = int(part_rate or rate)
-        chunks.append(np.asarray(audio, dtype=np.float32))
+        audio = np.asarray(audio)
+        # 模型有时给 int16 样本，直接当浮点写会削成方波。
+        if audio.dtype == np.int16 or (audio.size and np.abs(audio).max() > 1.5):
+            audio = audio.astype(np.float32) / 32768.0
+        else:
+            audio = audio.astype(np.float32)
+        chunks.append(audio)
     if not chunks:
         return np.zeros(1, dtype=np.float32), rate
     return np.concatenate(chunks), rate
@@ -93,7 +99,7 @@ def synth(text, out_path):
         samples, rate = pieces(tts.run(inputs))
     samples = trim(samples, rate)
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
-    sf.write(out_path, samples, rate)
+    sf.write(out_path, samples, rate, subtype='PCM_16')
 
 
 class Handler(BaseHTTPRequestHandler):

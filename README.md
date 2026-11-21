@@ -7,6 +7,21 @@
 - 直播页：`http://127.0.0.1:8788/`
 - 控制台：`http://127.0.0.1:8788/panel`
 
+## 先听
+
+三段手记《纸》《屋子》《边缘》，她自己的声音念的，**9 分 36 秒**，96k 单声道，没有别的处理。
+
+▶ https://github.com/qqwuhua001/ayanami-rei-live/blob/main/voices/preview-read.mp3?raw=true
+
+原文在同目录 `voices/preview-read.txt`；想用别的稿子重做一条：
+
+```bash
+python3 tools/render_read.py voices/preview-read.txt voices/preview-read.mp3 \
+  --worker http://127.0.0.1:8790 --ffmpeg /path/to/ffmpeg
+```
+
+按 90~110 字并段，段间留 0.3 秒，段落之间 1.1 秒，小标题后 1.6 秒，逐段合成再拼接。
+
 ## 画面
 
 ![直播页](preview.png)
