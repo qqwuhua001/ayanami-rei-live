@@ -24,7 +24,7 @@ export function systemPrompt() {
 
 export function tidy(text) {
   return String(text || '')
-    .replace(/^\s*(绫波丽|小满|助手|AI)\s*[：:]\s*/u, '')
+    .replace(/^\s*(绫波丽|助手|AI)\s*[：:]\s*/u, '')
     .replace(/（[^）]*）/g, '')
     .replace(/\([^)]*\)/g, '')
     .replace(/^["'“”]+|["'“”]+$/g, '')
